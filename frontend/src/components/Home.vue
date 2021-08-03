@@ -1,9 +1,9 @@
 <template>
  <div class="container mt-5">
-   <div v-for="article in articles" :key= "article.id">
-     <h3>{{article.id}}  <h2>{{article.nombre}}</h2></h3>
-    
-   </div>
+   <form action="http://127.0.0.1:5000/upload" method="POST" enctype="multipart/form-data">
+ <input type="file" name="archivo">
+ <input type="submit">
+</form>
  </div>
 </template>
 
@@ -19,6 +19,7 @@ export default {
 
 
   methods: {
+
     get_articles(){
       fetch('http://127.0.0.1:5000/get', {
         method: "GET",
