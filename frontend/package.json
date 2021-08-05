@@ -8,11 +8,18 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@mdi/font": "5.9.55",
+    "axios": "^0.21.1",
     "bootstrap": "^5.0.2",
     "core-js": "^3.6.5",
     "popper.js": "^1.16.1",
+    "roboto-fontface": "*",
     "vue": "^3.0.0",
-    "vue-router": "^4.0.10"
+    "vue-axios": "^3.2.5",
+    "vue-router": "^4.0.10",
+    "vuetable": "^1.5.12",
+    "vuetify": "^3.0.0-alpha.0",
+    "vueye-table": "^1.4.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -21,7 +28,10 @@
     "@vue/compiler-sfc": "^3.0.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^7.0.0"
+    "eslint-plugin-vue": "^7.0.0",
+    "sass": "~1.32.0",
+    "sass-loader": "^10.0.0",
+    "vue-cli-plugin-vuetify": "~2.4.2"
   },
   "eslintConfig": {
     "root": true,

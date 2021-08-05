@@ -3,6 +3,7 @@
    <form action="http://127.0.0.1:5000/upload" method="POST" enctype="multipart/form-data">
  <input type="file" name="archivo">
  <input type="submit">
+ <p>{{articles[0]}}</p>
 </form>
  </div>
 </template>
