@@ -1,9 +1,18 @@
+from backend.funciones import mover
 from flask import Flask, jsonify, render_template, request
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
 import os
 import csv, json
 import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import shutil
+from os import remove
+from os import path
+
+
 
 app = Flask(__name__)
 CORS(app)
@@ -11,27 +20,47 @@ CORS(app)
 # Carpeta de subida
 app.config['UPLOAD_FOLDER'] = './Archivos'
 
-archivo = pd.read_csv("D:/flask/proyecto/Archivos/WDBCOriginal.csv")
+#archivo = pd.read_csv('./Archivos/melb_data.csv')
+archivo = pd.read_csv('./Archivos/WDBCOriginal.csv')
 
 
+csvjson = 'hola'
 
-@app.route('/datos_headers', methods = ['GET'])
-def get_table():
-   # with the delimiter as ,
-    csv_reader = pd.read_csv("D:/flask/proyecto/Archivos/WDBCOriginal.csv")
-    file = pd.DataFrame(csv_reader)
-    result = file.to_json(orient= "split")
-    return  result
-        
+@app.route('/correlaciones', methods = ['GET'])
+def correlaciones():
+    mover("./frontend/public/image/correlacion_pearson.png")
+    plt.figure(figsize=(10,10))
+    sns.heatmap(archivo.corr(), cmap='RdBu_r', annot=True)
+    rutaCrear = "./frontend/public/imagetemp/correlacion_pearson.png"
+    rutaMover =  "./frontend/public/image/correlacion_pearson.png"
+    plt.savefig(rutaCrear)
+    shutil.move(rutaCrear, rutaMover)
+    plt.clf()
+    return "hola"
 
+def borrarImagenes(ruta):
+    try:
+        os.remove(ruta)
+        os.mkdir(ruta)
+    except: 
+        print("")
+
+@app.route('/datos_header', methods = ['GET'])
+def get_headers():
+  try:
+    return [{'text': str(data), 'value': str(data), 'sortable': False} for data in archivo]
+  except:
+    pass
 
 @app.route('/datos_table', methods = ['GET'])
-def get_headers():
-    csv_reader = pd.read_csv("D:/flask/proyecto/Archivos/WDBCOriginal.csv")
-    file = pd.DataFrame(csv_reader)
-    result = file.to_json(orient= "records")
-    parsed = json.loads(result)
-    return jsonify(json.dumps(parsed, indent=4))
+def get_table():
+  global registros
+  try:
+    df1 = archivo.where(pd.notnull(archivo), None)
+    registros = json.loads(df1.to_json(orient='records'))
+    return registros
+  except:
+    pass
 
 @app.route("/", methods=['POST'])
 def uploader():
@@ -72,4 +101,3 @@ def get_articles():
 
 if __name__ == "__main__":
     app.rin(debug=True)
-

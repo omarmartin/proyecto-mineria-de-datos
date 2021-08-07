@@ -6,8 +6,6 @@ import router from './routers.js'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 
-
-
 const app = createApp(App)
 app.use(Vuetify)
 app.use(router)
