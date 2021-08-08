@@ -63,12 +63,12 @@ def borrarImagenes(ruta):
     except: 
         print("")
 
-@app.route('/datos_header', methods = ['GET'])
+@app.route('/datos_headers', methods = ['GET'])
 def get_headers():
-  try:
-    return [{'text': str(data), 'value': str(data), 'sortable': False} for data in archivo]
-  except:
-    pass
+    csv_reader = archivo
+    file = pd.DataFrame(csv_reader)
+    result = file.to_json(orient= "split")
+    return  result
 
 @app.route('/datos_table', methods = ['GET'])
 def get_table():
