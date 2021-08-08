@@ -5,11 +5,14 @@ from pandas.core.frame import DataFrame
 import seaborn as sns
 import pandas as pd
 import shutil
-from os import remove
+import os
 
 
 def analisis_exploratorio(archivo):
     print("holi")
 
 def mover(ruta):
-    remove(ruta)
+    if(os.path.isfile(ruta)):
+        os.remove(ruta)
+    else:
+        print('La carpeta no existe.');
