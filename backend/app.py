@@ -11,7 +11,9 @@ import seaborn as sns
 import shutil
 from os import remove
 from os import path
-
+from apyori import apriori
+from apyori import dump_as_json
+from io import StringIO
 
 
 app = Flask(__name__)
@@ -21,7 +23,9 @@ CORS(app)
 app.config['UPLOAD_FOLDER'] = './Archivos'
 
 #archivo = pd.read_csv('./Archivos/melb_data.csv')
-archivo = pd.read_csv('./Archivos/WDBCOriginal.csv')
+#archivo = pd.read_csv('./Archivos/WDBCOriginal.csv')
+archivo = pd.read_csv('./Archivos/movies.csv')
+
 
 
 csvjson = 'hola'
@@ -33,15 +37,27 @@ def reglas():
         support = data["support"]
         confidence = data["confidence"]
         lift = data["lift"]      
-        lista = []
-        print(support)
-        print(confidence)
-        print(lift)
-    lista.append(support)
-    lista.append(confidence)
-    lista.append(lift)
-    print(lista)
-    return jsonify(lista)
+    registros = []
+    tamano = archivo.shape
+    print(tamano)
+    for i in range(0, 10):
+        registros.append([str(archivo.values[i,j]) 
+  		for j in range(0, 20)])
+    print(len(registros))
+    print(float(support))
+    print(float(confidence))
+    print(float(lift))
+    Reglas = apriori(registros, min_support=float(support), min_confidence=float(confidence), min_lift=float(lift))
+    Resultado = list(Reglas)
+    print(type(Resultado[0]))
+
+    output = []
+    for RelationRecord in Resultado:
+        o = StringIO()
+        dump_as_json(RelationRecord, o)
+        output.append(json.loads(o.getvalue()))
+    print(type(output))
+    return jsonify(output)
 
 
 @app.route('/correlaciones', methods = ['GET'])
