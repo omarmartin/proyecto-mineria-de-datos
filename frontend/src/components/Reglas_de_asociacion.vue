@@ -29,7 +29,7 @@
       </form>
       
     </div>
-    <div><p v-for="(item,index) in this.formdata.reglas" :key="index">Regla {{item}}</p></div>
+    <div class="lista_reglas"><p v-for="(item,index) in this.formdata.reglas" :key="index" class="letra">Regla {{index}}: {{item}}</p></div>
   </div>
 </template>
 
@@ -103,5 +103,9 @@ export default {
 }
 .button{
   margin: 20px;
+}
+.lista_reglas{
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: 1.5rem;
 }
 </style>
