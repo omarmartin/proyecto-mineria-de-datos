@@ -26,6 +26,24 @@ archivo = pd.read_csv('./Archivos/WDBCOriginal.csv')
 
 csvjson = 'hola'
 
+@app.route('/reglas_asociacion', methods = ['GET','POST'])
+def reglas():
+    if request.method == 'POST':
+        data = json.loads(request.data)
+        support = data["support"]
+        confidence = data["confidence"]
+        lift = data["lift"]      
+        lista = []
+        print(support)
+        print(confidence)
+        print(lift)
+    lista.append(support)
+    lista.append(confidence)
+    lista.append(lift)
+    print(lista)
+    return jsonify(lista)
+
+
 @app.route('/correlaciones', methods = ['GET'])
 def correlaciones():
     mover("./frontend/public/image/correlacion_pearson.png")
