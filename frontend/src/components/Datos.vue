@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-        <h3 class="p-3 text-center">Vue.js - Display a list of items with v-for</h3>
+    <div class="datos">
+        <h3 class="p-3 text-center">Tabla de datos</h3>
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>
@@ -17,6 +18,7 @@
                 </tr>
             </tbody>
         </table>
+      </div>
     </div>    
 </template>
 
@@ -86,5 +88,7 @@ export default {
 </script>
 
 <style>
-
+.container{
+  background-color: coral;
+}
 </style>

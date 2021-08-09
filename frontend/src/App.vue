@@ -20,3 +20,10 @@ export default {
   }),
 }
 </script>
+
+<style>
+#app{
+  background-color:coral;
+  height: 1080px;
+}
+</style>

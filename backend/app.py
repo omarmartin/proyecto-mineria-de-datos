@@ -1,4 +1,4 @@
-from backend.funciones import mover
+from backend.funciones import mover, diagnosis
 from flask import Flask, jsonify, render_template, request
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
@@ -33,6 +33,25 @@ data = ''
 
 
 csvjson = 'hola'
+
+@app.route('/regresion', methods = ['POST'])
+def regresion():
+    if request.method == 'POST':
+        data = json.loads(request.data)
+        id = data["id"]
+        radius = data["radius"]
+        texture = data["texture"]
+        perimeter = data["perimeter"]
+        area = data["area"]
+        smoothness = data["smoothness"]
+        compactness = data["compactness"]
+        concavity = data["concavity"]
+        concave_points = data["concave_points"]
+        symmetry = data["symmetry"]
+        fractal_dimension = data["fractal_dimension"]
+    resultado = diagnosis(id,radius,texture,perimeter,area,smoothness,compactness,concavity,concave_points,symmetry,fractal_dimension)
+    print(jsonify(resultado))
+    return jsonify(resultado)
 
 @app.route('/clasificar_clusters', methods = ['POST'])
 def clasificar_clusters():
@@ -83,9 +102,6 @@ def envia_variables():
     plt.savefig(rutaCrear)
     shutil.move(rutaCrear, rutaMover)
     plt.clf()
-
-    
-
 
     return  "S"
 

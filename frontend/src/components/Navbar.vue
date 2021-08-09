@@ -1,5 +1,5 @@
 <template>
-   <nav class="navbar navbar-expand-lg bg-light">
+   <nav class="navbar navbar-expand-lg">
     <router-link class="navbar-brand text-style" to="/"> Mineria de datos </router-link>
 
   <div class="collapse navbar-collapse" id="navbarNav">
@@ -8,28 +8,19 @@
         <router-link class="btn btn-primary" to="/">Home</router-link>
       </li>
       <li class="nav-item">
-        <router-link class="btn btn-primary" to="/create">Create</router-link>
-      </li>
-      <li class="nav-item">
         <router-link class="btn btn-primary" to="/datos">Datos</router-link>
       </li>
       <li class="nav-item">
-        <router-link class="btn btn-primary" to="/reglas_asociacion">Reglas_asoc</router-link>
+        <router-link class="btn btn-primary" to="/reglas_asociacion">Reglas de asociación</router-link>
       </li>
       <li class="nav-item">
-        <router-link class="btn btn-primary" to="/analisis_correlacional">Analisis_cor</router-link>
+        <router-link class="btn btn-primary" to="/analisis_correlacional">Analisis correlacional</router-link>
       </li>
       <li class="nav-item">
-        <router-link class="btn btn-primary" to="/distancias">Distancias</router-link>
+        <router-link class="btn btn-primary" to="/clustering_particional">Clustering</router-link>
       </li>
       <li class="nav-item">
-        <router-link class="btn btn-primary" to="/clustering_jerarquico">Clust_jer</router-link>
-      </li>
-      <li class="nav-item">
-        <router-link class="btn btn-primary" to="/clustering_particional">Clust_part</router-link>
-      </li>
-      <li class="nav-item">
-        <router-link class="btn btn-primary" to="/regresion_logistica">Reg_logis</router-link>
+        <router-link class="btn btn-primary" to="/regresion_logistica">Regresión logística</router-link>
       </li>
     </ul>
   </div>
@@ -44,17 +35,24 @@ export default {
 </script>
 
 <style>
+.navbar-brand{
+  color: aquamarine;
+}
 .btn{
-  width: 120px;
-  font-size: 20px !important;
+  width: 195px;
+  font-size: 18px !important;
   font-family: fantasy !important;
   margin-left: 10px;
   margin-right: 10px;
 }
 .text-style{
     font-size: 30px !important;
-    color:green !important;
+    color: ghostwhite !important;
     font-family: fantasy !important;
     margin-left: 10px;
     }
+
+.navbar{
+  background-color:darkcyan;
+}
 </style>

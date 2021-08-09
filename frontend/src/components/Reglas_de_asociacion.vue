@@ -83,10 +83,11 @@ export default {
   font-size: 3rem;
 }
 .template{
-  background-color:beige;
+  background-color:coral;
+  height: 1080px;
 }
 .input{
-  background-color: white;
+  background-color: coral;
   margin:20px
 }
 .button{
@@ -108,4 +109,5 @@ export default {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   font-size: 1.5rem;
 }
+
 </style>
