@@ -1,0 +1,23 @@
+Dependencias frontend
+//Instalar node.js en su versión estable
+npm install -g @vue/cli
+
+Dependencias en python 3.9
+
+pip install flask
+pip install -U flask-cors
+pip install pandas
+pip install numpy
+pip install matplotlib
+pip install seaborn
+pip install hashlib
+pip install pycryptodome
+pip install statistics
+pip install crypto
+pip install cryptography
+pip install starkbank-ecdsa
+pip install apyori
+pip install sklearn
+pip install kneed
+
+
