@@ -1,25 +1,25 @@
 <template class= "template">
-  <div class="template">  
+  <div class="container">  
     <div class="box">
 
       <!-- apriori form ===================== -->
-      <form id="apriori-form" @submit.prevent="enviar" method="POST">
+      <form id="apriori-form" @submit.prevent="store.enviar" method="POST">
         <!-- support -->
         <div class="field-support">
           <label class="label">Support</label>
-          <input type="text" class="input" name="support"  v-model="formdata.support">
+          <input type="text" class="input" name="support"  v-model="store.reglas_asociacion.support">
         </div>
 
         <!-- confidence -->
         <div class="field-confidence">
           <label class="label">Confidence</label>
-          <input type="text" class="input" name="confidence"  v-model="formdata.confidence">
+          <input type="text" class="input" name="confidence"  v-model="store.reglas_asociacion.confidence">
         </div>
 
         <!-- Lift -->
         <div class="field-lift">
           <label class="label">Lift</label>
-          <input type="text" class="input" name="lift" v-model="formdata.lift">
+          <input type="text" class="input" name="lift" v-model="store.reglas_asociacion.lift">
         </div>
 
         <!-- submit button -->
@@ -29,50 +29,18 @@
       </form>
       
     </div>
-    <div class="lista_reglas"><p v-for="(item,index) in this.formdata.reglas" :key="index" class="letra">Regla {{index}}: {{item}}</p></div>
+    <div class="lista_reglas"><p v-for="(item,index) in store.reglas_asociacion.reglas" :key="index" class="letra">Regla {{index}}: {{item}}</p></div>
   </div>
 </template>
 
 <script>
+import store from '../store/store'
 export default {
-  data(){
-    return{
-      formdata: {
-        support: '',
-        confidence: '',
-        lift: '',
-        reglas: ''
-      }
+  setup(){
+    return {
+      store
     }
   },
-  methods : {
-    enviar(){
-      /*console.log(this.formdata)
-      let res = axios.post('http://127.0.0.1:5000/reglas_asociacion', this.formdata)      
-      this.formdata.reglas = res.data 
-      console.log(this.formdata.reglas)*/
-
-      const requestOptions = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(this.formdata)
-      };
-      fetch('http://127.0.0.1:5000/reglas_asociacion', requestOptions)
-      .then(res => res.json())
-      .then(data => {
-        this.formdata.reglas = data
-        console.log(this.formdata.reglas)
-      })
-      .catch(error => {
-        if (!error.response) {
-            // network error
-            this.errorStatus = 'Error: Network Error';
-        } else {
-            this.errorStatus = error.response.data.message;
-        }
-      })
-    }
-  }
 }
 </script>
 

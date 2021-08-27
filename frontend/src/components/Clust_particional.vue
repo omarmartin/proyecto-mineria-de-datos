@@ -1,14 +1,14 @@
 <template>
-  <div>
+  <div class="container">
     <div class="grid">
       <div>
         <!-- apriori form ===================== -->
         <div class="agrupacion-form">
-          <form id="agrupacion-form" @submit.prevent="enviarGroupBy" method="POST">
+          <form id="agrupacion-form" @submit.prevent="store.enviarGroupBy" method="POST">
             <!-- support -->
             <div class="field-support">
             <label class="label">Agrupar por</label>
-              <input type="text" class="input_text" name="agruparPor"  v-model="agrupacion.agruparPor">
+              <input type="text" class="input_text" name="agruparPor" v-model="store.clustering.agruparPor">
             </div>
             <!-- submit button -->
             <div class="field has-text-right">
@@ -17,7 +17,7 @@
           </form>
         </div>
         <div class="heatmap-form">
-        <form id="heatmap-form" @submit.prevent="enviarCorrelacion" method="POST">
+        <form id="heatmap-form" @submit.prevent="store.enviarCorrelacion" method="POST">
           <!-- support -->
           <div class="field-support">
             <label class="label">Mostrar correlacion</label>
@@ -31,19 +31,19 @@
        <div class="variables">
         <!--<label v-for="(variables,index) in agrupacion.encabezados.columns" :key="index"><input type="radio" v-model="showFirst" value="true" />{{variable}}</label
         ><br /> -->          
-          <form id="variables-form" @submit.prevent="enviaVariables" method="POST"  >
-            <div class="field has-text-right" v-for="(header, index) in this.encabezados.columns" :key="index">
-               <input type="checkbox" :id="header" :value="header" v-model="checkboxes" />
+          <form id="variables-form" @submit.prevent="store.enviaVar" method="POST"  >
+            <div class="field has-text-right" v-for="(header, index) in store.clustering.encabezados.columns" :key="index">
+               <input type="checkbox" :id="store.clustering.header" :value="store.clustering.header" v-model="store.clustering.checkboxes" />
                 <label for="{{header}}">__{{header}}</label>
             </div>
-            <span>Checked names: {{ checkboxes }}</span>
+            <span>Checked names: {{ store.clustering.checkboxes }}</span>
             <div>
               <button class="button is-danger">Submit</button>
             </div>
           </form>
       </div>
       <div class="cluster-form">
-        <form id="heatmap-form" @submit.prevent="clasificar_clusters" method="POST">
+        <form id="heatmap-form" @submit.prevent="store.clasificar_clusters" method="POST">
           <!-- support -->
           <div class="field-support">
             <label class="label">Clasificar clusters</label>
@@ -57,7 +57,7 @@
       </div>
 
       <div class="evaluacion_visual" >
-          <img class="image" :src="imagen">
+          <img class="image" :src="store.clustering.imagen">
       </div>
       
     </div>
@@ -65,148 +65,27 @@
 </template>
 
 <script>
-import axios from 'axios'
+import store from '../store/store'
 export default {
-  data(){
+  setup(){
     return{
-      agrupacion: {
-        agruparPor: '',
-      },
-      encabezados: "",
-      checkboxes: [],
-      value: [],
-      val: [], 
-      label: [],
-      imagen: './image/evaluacionvisual.png'
+    store
     }
   },
 
   computed: {
     checked: {
       get () {
-        console.log(this.value)
-        return this.value
+        console.log(store.clustering.value)
+        return store.clustering.value
       },
       set (val) {
-        this.checkedProxy = val
+        this.store.clustering.checkedProxy = val
       }
     }
   },
-
-  methods : {
-
-    onChange(){
-      if(this.checkedProxy == "true"){
-        console.log(this.value)
-      }
-    },
-
-
-    enviarGroupBy(){
-      console.log(this.agrupacion)
-      const requestOptions = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(this.agrupacion)
-      };
-      fetch('http://127.0.0.1:5000/clustering_agrupacion', requestOptions)
-      .then(res => res.json())
-      .then(data => {
-        console.log(data)
-      })
-      .catch(error => {
-        if (!error.response) {
-            // network error
-            this.errorStatus = 'Error: Network Error';
-        } else {
-            this.errorStatus = error.response.data.message;
-        }
-      })
-    },
-
-    enviarCorrelacion(){
-      console.log(this.agrupacion)
-      const requestOptions = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(this.agrupacion)
-      };
-      fetch('http://127.0.0.1:5000/clustering_correlacion', requestOptions)
-      .then(res => res.json())
-      .then(data => {
-        console.log(data)
-      })
-      .catch(error => {
-        if (!error.response) {
-            // network error
-            this.errorStatus = 'Error: Network Error';
-        } else {
-            this.errorStatus = error.response.data.message;
-        }
-      })
-    },
-
-    get_headers2(){
-      axios.get('http://127.0.0.1:5000/datos_headers', {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      .then(response => {
-          //this.headers = response.data
-          this.encabezados = response.data
-          console.log(this.encabezados.columns)
-          
-      })
-    },
-    
-
-    enviaVariables() {
-      console.log(this.checkboxes)
-      const requestOptions = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(this.checkboxes)
-      };
-      fetch('http://127.0.0.1:5000/enviaVariables', requestOptions)
-      .then(res => res.json())
-      .then(data => {
-        console.log(data)
-      })
-      .catch(error => {
-        if (!error.response) {
-            // network error
-            this.errorStatus = 'Error: Network Error';
-        } else {
-            this.errorStatus = error.response.data.message;
-        }
-      })
-    },
-
-    clasificar_clusters(){
-      const requestOptions = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(this.checkboxes)
-      };
-      fetch('http://127.0.0.1:5000/clasificar_clusters', requestOptions)
-      .then(res => res.json())
-      .then(data => {
-        console.log(data)
-      })
-      .catch(error => {
-        if (!error.response) {
-            // network error
-            this.errorStatus = 'Error: Network Error';
-        } else {
-            this.errorStatus = error.response.data.message;
-        }
-      })
-    }
-  },
-
   mounted() {
-    this.get_headers2()
+    store.get_headers2()
   },
 }
 </script>

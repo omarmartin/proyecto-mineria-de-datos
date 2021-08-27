@@ -15,7 +15,6 @@ from apyori import apriori
 from apyori import dump_as_json
 from io import StringIO
 from sklearn.cluster import KMeans
-from sklearn.metrics import pairwise_distances_argmin_min
 from kneed import KneeLocator
 from mpl_toolkits.mplot3d import Axes3D
 

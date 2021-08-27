@@ -2,51 +2,51 @@
   <div >
     <div>
       <!-- apriori form ===================== -->
-        <form class="grid_cancer" id="apriori-form" @submit.prevent="enviar_datos" method="POST">
+        <form class="grid_cancer" id="apriori-form" @submit.prevent="store.enviar_datos" method="POST">
           <!-- support -->
           <div class="id">
             <label class="label">id</label>
-            <input type="text" class="input" name="id"  v-model="formdata.id">
+            <input type="text" class="input" name="id"  v-model="store.formdata.id">
           </div>
           <div class="radius">
             <label class="label">radius</label>
-            <input type="text" class="input" name="radius"  v-model="formdata.radius">
+            <input type="text" class="input" name="radius"  v-model="store.formdata.radius">
           </div>
           <div class="texture">
             <label class="label">texture</label>
-            <input type="text" class="input" name="texture"  v-model="formdata.texture">
+            <input type="text" class="input" name="texture"  v-model="store.formdata.texture">
           </div>
           <div class="perimeter">
             <label class="label">perimeter</label>
-            <input type="text" class="input" name="perimeter"  v-model="formdata.perimeter">
+            <input type="text" class="input" name="perimeter"  v-model="store.formdata.perimeter">
           </div>
           <div class="area">
             <label class="label">area</label>
-            <input type="text" class="input" name="area"  v-model="formdata.area">
+            <input type="text" class="input" name="area"  v-model="store.formdata.area">
           </div>
           <div class="smoothness">
             <label class="label">smoothness</label>
-            <input type="text" class="input" name="smoothness"  v-model="formdata.smoothness">
+            <input type="text" class="input" name="smoothness"  v-model="store.formdata.smoothness">
           </div>
           <div class="compactness">
             <label class="label">compactness</label>
-            <input type="text" class="input" name="compactness"  v-model="formdata.compactness">
+            <input type="text" class="input" name="compactness"  v-model="store.formdata.compactness">
           </div>
           <div class="concavity">
             <label class="label">concavity</label>
-            <input type="text" class="input" name="concavity"  v-model="formdata.concavity">
+            <input type="text" class="input" name="concavity"  v-model="store.formdata.concavity">
           </div>
           <div class="concave_points">
             <label class="label">concave points</label>
-            <input type="text" class="input" name="concave_points"  v-model="formdata.concave_points">
+            <input type="text" class="input" name="concave_points"  v-model="store.formdata.concave_points">
           </div>
           <div class="symmetry">
             <label class="label">symmetry</label>
-            <input type="text" class="input" name="symmetry"  v-model="formdata.symmetry">
+            <input type="text" class="input" name="symmetry"  v-model="store.formdata.symmetry">
           </div>
           <div class="fractal_dimension">
             <label class="label">fractal dimension</label>
-            <input type="text" class="input" name="fractal_dimension"  v-model="formdata.fractal_dimension">
+            <input type="text" class="input" name="fractal_dimension"  v-model="store.formdata.fractal_dimension">
           </div>
           <!-- submit button -->
           <div class="boton has-text-right">
@@ -55,61 +55,20 @@
         </form>
     </div>
     <div>
-        <h1>{{formdata.reglas}}</h1> 
+        <h1>{{store.formdata.reglas}}</h1> 
     </div>
   </div>
 </template>
 
 <script>
+import store from '../store/store'
+
 export default {
-  data(){
-    return{
-      formdata: {
-        id: '',
-        radius: '',
-        texture: '',
-        perimeter: '',
-        area: '',
-        smoothness: '',
-        compactness: '',
-        concavity: '',
-        concave_points: '',
-        symmetry: '',
-        fractal_dimension: '',
-        reglas: ''
-      }
+  setup(){
+    return {
+      store
     }
   },
-
-  methods : {
-    enviar_datos(){
-      /*console.log(this.formdata)
-      let res = axios.post('http://127.0.0.1:5000/reglas_asociacion', this.formdata)      
-      this.formdata.reglas = res.data 
-      console.log(this.formdata.reglas)*/
-
-      const requestOptions = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(this.formdata)
-      };
-      fetch('http://127.0.0.1:5000/regresion', requestOptions)
-      .then(res => res.json())
-      .then(data => {
-        this.formdata.reglas = data
-        console.log(this.formdata.reglas)
-      })
-      .catch(error => {
-        if (!error.response) {
-            // network error
-            this.errorStatus = 'Error: Network Error';
-        } else {
-            this.errorStatus = error.response.data.message;
-        }
-      })
-    }
-  }
-
 }
 </script>
 
