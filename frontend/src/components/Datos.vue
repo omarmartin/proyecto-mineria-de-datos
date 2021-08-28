@@ -89,6 +89,9 @@ export default {
 
 <style>
 .container{
-  background-color: coral;
+  background-color: #55423d;
+}
+h3{
+  color: #fffffe;
 }
 </style>

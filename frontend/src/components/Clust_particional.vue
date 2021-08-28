@@ -153,6 +153,10 @@ export default {
   font-size: 1rem;
 }
 
+button{
+  background-color:#ffc0ad
+}
+
 .grid .evaluacion_visual{
     grid-column: 2;
     grid-row: span;
@@ -163,4 +167,5 @@ export default {
   height: 750px;
   text-align: left;
 }
+
 </style>

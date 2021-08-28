@@ -28,7 +28,10 @@ export default {
 
 <style>
 #app{
-  background-color:coral;
+  background-color:#55423d;
   height: 1080px;
+}
+p, label, span{
+  color: #fff3ec;
 }
 </style>

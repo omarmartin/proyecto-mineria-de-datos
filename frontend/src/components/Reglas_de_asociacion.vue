@@ -51,7 +51,7 @@ export default {
   font-size: 3rem;
 }
 .template{
-  background-color:coral;
+  background-color:#55423d;
   height: 1080px;
 }
 .input{
@@ -59,7 +59,9 @@ export default {
   margin:20px
 }
 .button{
-  background-color:deepskyblue;
+  color: #271c19;
+  background-color:#ffc0ad;
+  margin: 20px;
 }
 .field-confidence label{
   padding-right: 20px;
@@ -70,9 +72,7 @@ export default {
 .field-lift label{
   padding-right: 200px;
 }
-.button{
-  margin: 20px;
-}
+
 .lista_reglas{
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   font-size: 1.5rem;
